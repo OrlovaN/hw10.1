@@ -1,6 +1,6 @@
 def filter_by_state(operations: list, state: str = "EXECUTED") -> list:
     """Функция, возвращающая словари с ключом state"""
-    state_lists = []
+    state_lists: list = []
     for operation in operations:
         if operation["state"] == state:
             state_lists.append(operation)
