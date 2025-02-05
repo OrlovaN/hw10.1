@@ -7,12 +7,6 @@ def filter_by_state(operations: list, state: str = "EXECUTED") -> list:
     return state_lists
 
 
-feature/homework_10_1
 def sort_by_date(operations: list, descending: bool = True) -> list:
     """Функция сортировки списка по дате"""
     return sorted(operations, key=lambda operation: operation["date"], reverse=descending)
-
-def sort_by_date(operations: list) -> list:
-    """Функцияяя сортировки списка по дате"""
-    return sorted(operations, key=lambda operation: operation["date"], reverse=True)
-develop
