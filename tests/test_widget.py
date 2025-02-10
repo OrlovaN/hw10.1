@@ -9,28 +9,33 @@ def test_mask_account_card() -> None:
     assert mask_account_card("Счет 64686473678894779589") == "Счет XX9589"
 
 
-@pytest.mark.parametrize("value, expected", [("Maestro 1596837868705199", "Maestro 1596 83XX XXXX 5199"),
-            ("Счет 64686473678894779589", "Счет XX9589")])
-def test_mask_account_card_2(value, expected):
+@pytest.mark.parametrize(
+    "value, expected",
+    [("Maestro 1596837868705199", "Maestro 1596 83XX XXXX 5199"), ("Счет 64686473678894779589", "Счет XX9589")],
+)
+def test_mask_account_card_2(value: str, expected: str) -> None:
     """Функция для обработки информации о картах через параметризацию"""
     assert mask_account_card(value) == expected
 
 
-def test_mask_account_card_3():
+def test_mask_account_card_3() -> None:
     with pytest.raises(TypeError):
-        mask_account_card()
-        mask_account_card(1596837868705199)
         mask_account_card("")
         mask_account_card("Мастер кард 123456789123")
 
 
-def test_get_date():
+def test_get_date() -> None:
     """Функция проверки преобразования формата даты"""
     assert get_date("2024-03-11T02:26:18.671407") == "11.03.2024"
 
-@pytest.mark.parametrize("value, expected",
-                         [("2024-03-11T02:26:18.671407", "11.03.2024"),
-                          (" ", "не введена дата"),
-                          ("11/03/2024", "некорректный формат даты")])
-def test_get_date_2(value, expected):
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        ("2024-03-11T02:26:18.671407", "11.03.2024"),
+        (" ", "не введена дата"),
+        ("11/03/2024", "некорректный формат даты"),
+    ],
+)
+def test_get_date_2(value: str, expected: str) -> None:
     assert get_date(value)
