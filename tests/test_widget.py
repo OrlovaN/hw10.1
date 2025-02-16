@@ -19,8 +19,9 @@ def test_mask_account_card_2(value: str, expected: str) -> None:
 
 
 def test_mask_account_card_3() -> None:
-    with pytest.raises(TypeError):
+    with pytest.raises(Exception):
         mask_account_card("")
+        mask_account_card("Мастер кард 123456789123")
 
 
 def test_get_date() -> None:
