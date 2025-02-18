@@ -63,7 +63,7 @@ def filter_by_currency(transactions: list[dict], code: str) -> Generator[dict]:
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator:
-    """Функция возвращает список операций по очереди"""
+    """Функция возвращает описание каждой операции по очереди"""
     for transaction in transactions:
         description = transaction.get("description")
         if isinstance(description, str) and description:  # Проверяем, что описание - строка и не пустое
@@ -71,12 +71,15 @@ def transaction_descriptions(transactions: list[dict]) -> Generator:
 
 
 def card_number_generator(start: int, stop: int) -> Generator:
+    """Функция генерации номеров банковских карт"""
     if not (0 <= start <= stop <= 9999999999999999):
-        return None
+        return
     for number in range(start, stop + 1):
         number_str = str(number)
         str_length = 16 - len(number_str)  # Добавляем ведущие нули вручную, если длина строки меньше 16
         if str_length > 0:
             number_str = "0" * str_length + number_str
-        formatted_card_number = " ".join(number_str[i : i + 4] for i in range(0, 16, 4))
+        if len(number_str) < 16:
+            number_str = "0" * (16 - len(number_str)) + number_str
+        formatted_card_number = " ".join(number_str[i:i + 4] for i in range(0, 16, 4))
         yield formatted_card_number

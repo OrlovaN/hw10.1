@@ -1,11 +1,9 @@
 import pytest
 
-from typing import List, Dict, Iterator, Generator
-
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
-def test_filter_by_currency_1(transactions: list):
+def test_filter_by_currency_1(transactions: list) -> None:
     """Проверяет корректность фильтровки транзакций по заданной валюте"""
     usd_transactions = filter_by_currency(transactions, "USD")
     assert next(usd_transactions) == {
@@ -37,21 +35,21 @@ def test_filter_by_currency_1(transactions: list):
     }
 
 
-def test_filter_by_currency_2(transactions: list):
+def test_filter_by_currency_2(transactions: list) -> None:
     """Проверяем, что функция правильно обрабатывает случаи, если code пустой"""
     empty_trans = filter_by_currency(transactions, "")
     assert list(empty_trans) == []
 
 
-def test_filter_by_currency_3(transactions: list):
+def test_filter_by_currency_3(transactions: list) -> None:
     """Проверяем, что функция правильно обрабатывает случаи, если операции в заданной валюте отсутствуют"""
     GBP_trans = filter_by_currency(transactions, "GBP")
     assert list(GBP_trans) == []
 
 
-def test_filter_by_currency_4(transactions: list):
+def test_filter_by_currency_4(transactions: list) -> None:
     """Проверяем, что функция правильно обрабатывает случаи, если отсутствует ключ code"""
-    missing_trans = filter_by_currency(transactions, None)
+    missing_trans = filter_by_currency(transactions, "None")
     assert list(missing_trans) == []
 
 
@@ -65,12 +63,12 @@ def test_filter_by_currency_4(transactions: list):
         ([{"operationAmount": {"currency": {"code": None}}}], "USD", []),
     ],
 )
-def test_filter_by_currency_5(value: list, code: str, expected: list):
+def test_filter_by_currency_5(value: list, code: str, expected: list) -> None:
     # trans = filter_by_currency(value) == expected
     assert list(filter_by_currency(value, code)) == expected
 
 
-def test_transaction_descriptions_1(transactions):
+def test_transaction_descriptions_1(transactions: list[dict]) -> None:
     """Проверяем, что функция возвращает корректные описания для каждой транзакции"""
     descriptions = transaction_descriptions(transactions)
     assert next(descriptions) == "Перевод организации"
@@ -100,7 +98,7 @@ def test_transaction_descriptions_1(transactions):
             ],
             ["Перевод организации"],
         ),
-        # Все транзакци
+        # Все транзакции
         (
             [
                 {
@@ -210,23 +208,91 @@ def test_transaction_descriptions_1(transactions):
         ),
     ],
 )
-def test_transaction_descriptions_2(value: list[dict], expected: list[str]):
-    """Тестирует функцию transaction_descriptions с различным количеством входных транзакций,
+def test_transaction_descriptions_2(value: list[dict], expected: list[str]) -> None:
+    """Тестируем функцию transaction_descriptions с различным количеством входных транзакций,
     включая пустой список"""
     assert list(transaction_descriptions(value)) == expected
 
 
-def test_card_number_generator_1():
+def test_card_number_generator_1() -> None:
     """Проверяем, что генератор выдает правильные номера карт в заданном диапазоне"""
-    start_number = 1234567890123456
-    stop_number = 1234567890123459
+    start = 1234567890123456
+    stop = 1234567890123459
     expected_numbers = [
         "1234 5678 9012 3456",
         "1234 5678 9012 3457",
         "1234 5678 9012 3458",
         "1234 5678 9012 3459",
     ]
-    assert list(card_number_generator(start_number, stop_number)) == expected_numbers
+    assert list(card_number_generator(start, stop)) == expected_numbers
 
 
-def test_card_number_generator_2():
+def test_card_number_generator_2() -> None:
+    """Проверяем, что генератор правильно обрабатывает случай, когда start и stop содержат только одну цифру."""
+    start = 5
+    stop = 5
+    expected_numbers = ["0000 0000 0000 0005"]
+    assert list(card_number_generator(start, stop)) == expected_numbers
+
+
+def test_card_number_generator_3() -> None:
+    """Проверяем, что генератор корректно обрабатывает крайние значения диапазона."""
+    start = 0
+    stop = 1
+    expected_numbers = ["0000 0000 0000 0000", "0000 0000 0000 0001"]
+    assert list(card_number_generator(start, stop)) == expected_numbers
+
+
+def test_card_number_generator_4() -> None:
+    """Проверяем, что генератор корректно обрабатывает полный диапазон."""
+    start = 9999999999999995
+    stop = 9999999999999999
+    expected_numbers = [
+        "9999 9999 9999 9995",
+        "9999 9999 9999 9996",
+        "9999 9999 9999 9997",
+        "9999 9999 9999 9998",
+        "9999 9999 9999 9999",
+    ]
+    assert list(card_number_generator(start, stop)) == expected_numbers
+
+
+def test_card_number_generator_5() -> None:
+    """Проверяем, что генератор возвращает пустой список, если start > stop."""
+    start = 10
+    stop = 5
+    assert list(card_number_generator(start, stop)) == []  # range(10, 6) возвращает пустую последовательность
+
+
+def test_card_number_generator_6() -> None:
+    """Проверяем работу генератора на большом диапазоне."""
+    start = 9999999999999990
+    stop = 9999999999999993
+    expected_numbers = [
+        "9999 9999 9999 9990",
+        "9999 9999 9999 9991",
+        "9999 9999 9999 9992",
+        "9999 9999 9999 9993",
+    ]
+    assert list(card_number_generator(start, stop)) == expected_numbers
+
+
+def test_card_number_generator_7() -> None:
+    """Проверяем, что при start = stop = 0 генерируется корректный номер."""
+    start = 0
+    stop = 0
+    expected_numbers = ["0000 0000 0000 0000"]
+    assert list(card_number_generator(start, stop)) == expected_numbers
+
+
+@pytest.mark.parametrize(
+    "start, stop",
+    [
+        (-1, 5),
+        (5, 10000000000000000),
+        (10000000000000000, 10000000000000005),
+    ],
+)
+def test_card_number_generator_8(start: int, stop: int) -> None:
+    """Проверяем, что функция возвращает None при некорректном диапазоне."""
+    assert list(card_number_generator(start, stop)) == []

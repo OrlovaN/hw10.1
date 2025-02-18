@@ -93,7 +93,7 @@ def transactions() -> list:
 
 
 @pytest.fixture
-def usd_currency_list():
+def usd_currency_list() -> list:
     return [
         {
             "id": 939719570,
