@@ -49,21 +49,25 @@ transactions = [
 ]
 
 
-def filter_by_currency(transactions_list: list[dict], code: str) -> Generator[dict]:
+def filter_by_currency(transactions: list[dict], code: str) -> Generator[dict]:
     """Функция фильтрует список транзакций и возвращает итератор, выдающий только транзакции с заданной валютой"""
-    for i in transactions_list:
-        i1 = i.get("operationAmount")
-        if i1:
-            currency = i1.get("currency")
+    if code is None:
+        return
+    for transaction  in transactions:
+        operation_amount = transaction .get("operationAmount")
+        if operation_amount:
+            currency = operation_amount .get("currency")
             if currency and currency.get("code") == code:
-                yield i
+                yield transaction
 
 
-def transaction_descriptions(transactions_list: list[dict]) -> Generator:
+
+def transaction_descriptions(transactions: list[dict]) -> Generator:
     """Функция возвращает список операций по очереди"""
-    for i in transactions_list:
-        next_description = i["description"]
-        yield next_description
+    for transaction in transactions:
+        description = transaction.get("description")
+        if isinstance(description, str) and description:  # Проверяем, что описание - строка и не пустое
+            yield description
 
 
 def card_number_generator(start: int, stop: int) -> Generator:
