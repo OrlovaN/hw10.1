@@ -80,5 +80,5 @@ def card_number_generator(start: int, stop: int) -> Generator:
             number_str = "0" * str_length + number_str
         if len(number_str) < 16:
             number_str = "0" * (16 - len(number_str)) + number_str
-        formatted_card_number = " ".join(number_str[i : i + 4] for i in range(0, 16, 4))
+        formatted_card_number = " ".join(number_str[i:i + 4] for i in range(0, 16, 4))
         yield formatted_card_number

@@ -2,15 +2,15 @@ import datetime
 import logging
 import os
 from functools import wraps
-from typing import Any, Callable
+from typing import Callable, Any
 
 
 def log(filename: str = "") -> Callable:
     """Функция автоматической регистрации деталей выполнения операций"""
 
-    def my_decorator(func):
+    def my_decorator(func: Any) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             func_name = func.__name__
             if filename:
                 log_file_path = os.path.abspath(filename)
@@ -36,7 +36,11 @@ def log(filename: str = "") -> Callable:
                 result = func(*args, **kwargs)
                 end_time = datetime.datetime.now()
                 execution_time = (end_time - start_time).total_seconds()
-                log_message = f"Функция '{func_name}' завершена успешно. Результат: {result}, Время выполнения: {execution_time:.4f} сек в {end_time.strftime('%Y-%m-%d %H:%M:%S')}"
+                log_message = (
+                    f"Функция '{func_name}' завершена успешно. Результат: {result}, "
+                    f"Время выполнения: {execution_time:.4f} сек "
+                    f"в {end_time.strftime('%Y-%m-%d %H:%M:%S')}"
+                )
 
                 if filename:
                     logger.info(log_message)
@@ -47,7 +51,10 @@ def log(filename: str = "") -> Callable:
             except Exception as e:
                 end_time = datetime.datetime.now()
                 execution_time = (end_time - start_time).total_seconds()
-                log_message = f"Ошибка в функции '{func_name}'. Тип ошибки: {type(e).__name__}, Параметры: args={args}, kwargs={kwargs}, Время выполнения: {execution_time:.4f} сек"
+                log_message = (
+                    f"Ошибка в функции '{func_name}'. Тип ошибки: {type(e).__name__},"
+                    f"Параметры: args={args}, kwargs={kwargs}, Время выполнения: {execution_time:.4f} сек"
+                )
                 if filename:
                     logger.error(log_message)
                 else:
@@ -59,7 +66,9 @@ def log(filename: str = "") -> Callable:
     return my_decorator
 
 
-@log(filename="mylog.txt")
-def my_function(x, y):
+@log()
+def my_function(x: Any, y: Any) -> Any:
     return x / y
-my_function(1, 0)
+
+
+my_function(1, 2)

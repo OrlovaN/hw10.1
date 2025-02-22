@@ -1,15 +1,16 @@
 import os
+from typing import Any
 
 import pytest
 
 from src.decorators import log
 
 
-def test_log_1(capsys):
+def test_log_1(capsys: Any) -> None:
     """Тестируем успешное логирование в консоль"""
 
     @log()
-    def my_function(x, y):
+    def my_function(x: Any, y: Any) -> Any:
         return x + y
 
     result = my_function(2, 3)
@@ -19,11 +20,11 @@ def test_log_1(capsys):
     assert str(result) in captured.out
 
 
-def test_log_2(capsys):
+def test_log_2(capsys: Any) -> None:
     """Тестируем логирование в консоль с исключением"""
 
     @log()
-    def my_function(x, y):
+    def my_function(x: Any, y: Any) -> Any:
         raise ValueError("Test exception")
 
     with pytest.raises(ValueError) as excinfo:
@@ -34,15 +35,15 @@ def test_log_2(capsys):
     assert "Test exception" in str(excinfo.value)
 
 
-def test_log_to_file_success():
+def test_log_to_file_success() -> None:
     """Тестируем логирование в файл"""
     log_file = os.path.abspath("test_log.txt")
 
     @log(filename=log_file)
-    def my1_function(x, y):
+    def my1_function(x: Any, y: Any) -> Any:
         return x + y
 
-    result = my1_function(2, 3)
+    my1_function(2, 3)
 
     # Проверяем, что файл был создан
     assert os.path.exists(log_file)
