@@ -53,13 +53,12 @@ def filter_by_currency(transactions: list[dict], code: str) -> Generator[dict]:
     """Функция фильтрует список транзакций и возвращает итератор, выдающий только транзакции с заданной валютой"""
     if code is None:
         return
-    for transaction  in transactions:
-        operation_amount = transaction .get("operationAmount")
+    for transaction in transactions:
+        operation_amount = transaction.get("operationAmount")
         if operation_amount:
-            currency = operation_amount .get("currency")
+            currency = operation_amount.get("currency")
             if currency and currency.get("code") == code:
                 yield transaction
-
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator:
@@ -81,5 +80,5 @@ def card_number_generator(start: int, stop: int) -> Generator:
             number_str = "0" * str_length + number_str
         if len(number_str) < 16:
             number_str = "0" * (16 - len(number_str)) + number_str
-        formatted_card_number = " ".join(number_str[i:i + 4] for i in range(0, 16, 4))
+        formatted_card_number = " ".join(number_str[i : i + 4] for i in range(0, 16, 4))
         yield formatted_card_number

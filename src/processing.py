@@ -10,4 +10,3 @@ def filter_by_state(operations: list, state: str = "EXECUTED") -> list:
 def sort_by_date(operations: list, reverse: bool = True) -> list:
     """Функция сортировки списка по дате"""
     return sorted(operations, key=lambda operation: operation["date"], reverse=reverse)
-

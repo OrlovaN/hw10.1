@@ -1,0 +1,6 @@
+2025-02-23 00:38:22,339 - INFO - my_function - Функция 'my_function' запущена в 2025-02-23 00:38:22
+2025-02-23 00:38:22,339 - ERROR - my_function - Ошибка в функции 'my_function'. Тип ошибки: ZeroDivisionError, Параметры: args=(1, 0), kwargs={}, Время выполнения: 0.0005 сек
+2025-02-23 00:45:45,749 - INFO - my_function - Функция 'my_function' запущена в 2025-02-23 00:45:45
+2025-02-23 00:45:45,751 - ERROR - my_function - Ошибка в функции 'my_function'. Тип ошибки: ZeroDivisionError, Параметры: args=(1, 0), kwargs={}, Время выполнения: 0.0023 сек
+2025-02-23 00:46:38,496 - INFO - my_function - Функция 'my_function' запущена в 2025-02-23 00:46:38
+2025-02-23 00:46:38,498 - ERROR - my_function - Ошибка в функции 'my_function'. Тип ошибки: ZeroDivisionError, Параметры: args=(1, 0), kwargs={}, Время выполнения: 0.0022 сек
