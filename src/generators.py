@@ -53,13 +53,12 @@ def filter_by_currency(transactions: list[dict], code: str) -> Generator[dict]:
     """Функция фильтрует список транзакций и возвращает итератор, выдающий только транзакции с заданной валютой"""
     if code is None:
         return
-    for transaction  in transactions:
-        operation_amount = transaction .get("operationAmount")
+    for transaction in transactions:
+        operation_amount = transaction.get("operationAmount")
         if operation_amount:
-            currency = operation_amount .get("currency")
+            currency = operation_amount.get("currency")
             if currency and currency.get("code") == code:
                 yield transaction
-
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator:
