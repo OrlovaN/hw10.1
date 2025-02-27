@@ -2,7 +2,7 @@ import datetime
 import logging
 import os
 from functools import wraps
-from typing import Callable, Any
+from typing import Any, Callable
 
 
 def log(filename: str = "") -> Callable:
@@ -22,7 +22,7 @@ def log(filename: str = "") -> Callable:
                     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(name)s - %(message)s")
                     file_handler.setFormatter(formatter)
                     logger.addHandler(file_handler)
-                except Exception as e:
+                except Exception:
                     raise
 
                 start_time = datetime.datetime.now()
@@ -66,7 +66,7 @@ def log(filename: str = "") -> Callable:
     return my_decorator
 
 
-@log()
+@log("mylog.txt")
 def my_function(x: Any, y: Any) -> Any:
     return x / y
 
