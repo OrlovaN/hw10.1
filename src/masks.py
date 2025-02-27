@@ -13,9 +13,11 @@ def get_mask_card_number(cart_number: str) -> str:
     if not isinstance(cart_number, str):
         logger.error(f"Неверный тип данных для номера карты: {type(cart_number)}. Ожидается str.")
         return f"Ошибка: Неверный тип данных для номера карты: {type(cart_number)}. Ожидается str."
-
+    if not cart_number:
+        return "не введен номер карты"
     if len(cart_number) != 16:
         logger.warning(f"Номер карты имеет неверную длину: {len(cart_number)}. Ожидается 16.")
+        return "неверно введен номер карты"
     else:
         logger.debug(f"Начало маскировки номера карты: {cart_number}")
         mask_number = f"{cart_number[0:4]} {cart_number[4:6]}XX XXXX {cart_number[-4:]}"
@@ -49,7 +51,7 @@ def get_mask_account(account_number: str) -> str:
         return masked_number
 
 
-if __name__ == "__main__":
-    account_number = "12345678901234567890"
-    masked_number = get_mask_account(account_number)
-    print(f"Замаскированный номер счета: {masked_number}")
+# if __name__ == "__main__":
+#     account_number = "12345678901234567890"
+#     masked_number = get_mask_account(account_number)
+#     print(f"Замаскированный номер счета: {masked_number}")

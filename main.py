@@ -5,7 +5,7 @@ import os
 
 
 data_dir = load_transactions_from_json("")
-#print(json.dumps(data_dir, indent=4, ensure_ascii=False))
+print(json.dumps(data_dir, indent=4, ensure_ascii=False))
 
 
     #  фиктивные транзакции

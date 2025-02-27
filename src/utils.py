@@ -50,7 +50,7 @@ def get_transaction_amount_in_rub(transaction: dict[str, Any]) -> float:
 
     if amount is None or currency is None:
         logger.error("Отсутствует 'amount' или 'code' в транзакции.")
-        return None
+        return
     try:
         if currency == "RUB":
             logger.info(f"Сумма в рублях: {float(amount)}")
@@ -63,13 +63,13 @@ def get_transaction_amount_in_rub(transaction: dict[str, Any]) -> float:
                 return float(converted_amount)
             else:
                 logger.warning(f"Не удалось конвертировать {currency} в RUB.")
-                return None
+                return
         else:
             logger.warning(f"Неподдерживаемая валюта: {currency}")
-            return None
+            return
     except ValueError:
         logger.error(f"Некорректное значение 'amount': {amount}. Ожидается число.")
-        return None
+        return
     except Exception:
         logger.exception(f"Произошла непредвиденная ошибка при обработке транзакции: {transaction}")
-        return None
+        return
