@@ -11,7 +11,7 @@ URL = os.getenv("URL")
 
 def convert_currency(amount: float, from_currency: str, to_currency: str = "RUB") -> float:
     """
-    "Функция конвертирует валюты из USD и EUR в рубли с использованием Exchange Rates Data API
+    Функция конвертирует валюты из USD и EUR в рубли с использованием Exchange Rates Data API
     """
 
     if from_currency == to_currency:
