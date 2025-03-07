@@ -24,9 +24,9 @@ def test_get_mask_card_number_2(card_number: str) -> None:
         ("FDCBH", "неверно введен номер карты"),
     ],
 )
-def test_get_mask_card_number_3(value: str, expected: str) -> None:
+def test_get_mask_card_number_3(value: str, expected: str):
     """Функция для теста маскировки номера карты с помощью параметризации"""
-    assert get_mask_card_number(value)
+    assert get_mask_card_number(value) == expected
 
 
 def test_get_mask_account() -> None:

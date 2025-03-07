@@ -1,15 +1,15 @@
-2025-02-28 01:21:39 utils.py ERROR: Файл не найден: data/operations.json
-2025-02-28 01:21:39 utils.py ERROR: Произошла непредвиденная ошибка при загрузке файла: data/operations.json
+2025-02-28 02:43:38 utils.py ERROR: Файл не найден: data/operations.json
+2025-02-28 02:43:38 utils.py ERROR: Произошла непредвиденная ошибка при загрузке файла: data/operations.json
 Traceback (most recent call last):
   File "C:\Users\User\PycharmProjects\hw101\src\utils.py", line 24, in load_transactions_from_json
     with open(filepath, "r", encoding="utf-8") as f:
          ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: 'Mock' object does not support the context manager protocol
-2025-02-28 01:21:39 utils.py DEBUG: Обработка транзакции: {'amount': 100, 'code': 'RUB'}
-2025-02-28 01:21:39 utils.py INFO: Сумма в рублях: 100.0
-2025-02-28 01:21:39 utils.py DEBUG: Обработка транзакции: {'code': 'RUB'}
-2025-02-28 01:21:39 utils.py ERROR: Отсутствует 'amount' или 'code' в транзакции.
-2025-02-28 01:21:39 utils.py DEBUG: Обработка транзакции: {'amount': 100}
-2025-02-28 01:21:39 utils.py ERROR: Отсутствует 'amount' или 'code' в транзакции.
-2025-02-28 01:21:39 utils.py DEBUG: Обработка транзакции: {'amount': 100, 'code': 'GBP'}
-2025-02-28 01:21:39 utils.py WARNING: Неподдерживаемая валюта: GBP
+2025-02-28 02:43:38 utils.py DEBUG: Обработка транзакции: {'amount': 100, 'code': 'RUB'}
+2025-02-28 02:43:38 utils.py INFO: Сумма в рублях: 100.0
+2025-02-28 02:43:38 utils.py DEBUG: Обработка транзакции: {'code': 'RUB'}
+2025-02-28 02:43:38 utils.py ERROR: Отсутствует 'amount' или 'code' в транзакции.
+2025-02-28 02:43:38 utils.py DEBUG: Обработка транзакции: {'amount': 100}
+2025-02-28 02:43:38 utils.py ERROR: Отсутствует 'amount' или 'code' в транзакции.
+2025-02-28 02:43:38 utils.py DEBUG: Обработка транзакции: {'amount': 100, 'code': 'GBP'}
+2025-02-28 02:43:38 utils.py WARNING: Неподдерживаемая валюта: GBP
